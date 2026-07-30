@@ -87,16 +87,90 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--uch-border);
 }
-.header-inner {
+
+/* ---------- 上層：聯絡資訊條 ---------- */
+.topbar {
+  background: #33453D;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.9rem;
+}
+.topbar-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 92px;
+  gap: 20px;
+  height: 52px;
+}
+.topbar-left,
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.topbar-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.topbar-phone svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--uch-secondary);
+  flex-shrink: 0;
+}
+.topbar-phone:hover { color: var(--uch-secondary); }
+.topbar-divider { color: rgba(255, 255, 255, 0.3); }
+.topbar-tagline {
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar-follow {
+  color: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.social-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.social-icon svg { width: 18px; height: 18px; fill: #fff; }
+.social-icon:hover { transform: translateY(-2px); filter: brightness(1.12); }
+.social-fb { background: #1877F2; }
+.social-map { background: #4285F4; }
+.social-book { background: #E8833A; }
+.social-line { background: #06C755; }
+
+/* ---------- 下層：主導覽列 ---------- */
+.navbar {
+  background: var(--uch-white);
+  border-bottom: 1px solid var(--uch-border);
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
   gap: 16px;
+  height: 88px;
 }
 .brand {
   font-family: "Noto Serif TC", serif;
@@ -109,34 +183,63 @@ a { color: inherit; text-decoration: none; }
   gap: 12px;
 }
 .brand-logo {
-  width: 80px;
-  height: 80px;
+  width: 66px;
+  height: 66px;
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--uch-white);
   object-fit: contain;
-  padding: 5px;
+  padding: 4px;
   border: 1px solid var(--uch-border);
   box-shadow: 0 4px 14px rgba(79, 111, 100, 0.16);
 }
-.brand-text { display: flex; flex-direction: column; line-height: 1.25; }
-.brand-sub { font-weight: 500; color: var(--uch-text-muted); font-size: 0.78rem; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.3; }
+.brand-sub { font-weight: 500; color: var(--uch-text-muted); font-size: 0.76rem; }
 
 .main-nav {
   display: flex;
-  gap: 32px;
-  margin-left: auto;
-  margin-right: 24px;
+  gap: 28px;
+  margin: 0 auto;
 }
 .main-nav a {
   font-weight: 500;
   color: var(--uch-text);
   position: relative;
-  padding: 4px 0;
+  padding: 8px 0;
+  white-space: nowrap;
+}
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--uch-primary);
+  transform: scaleX(0);
+  transition: transform 0.18s ease;
 }
 .main-nav a:hover { color: var(--uch-primary); }
+.main-nav a:hover::after,
+.main-nav a.is-active::after { transform: scaleX(1); }
+.main-nav a.is-active { color: var(--uch-primary); font-weight: 700; }
 
-.header-cta { flex-shrink: 0; }
+.nav-cta {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: var(--uch-accent);
+  color: var(--uch-white);
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 8px 20px rgba(216, 38, 28, 0.28);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.nav-cta:hover { background: #b81f16; transform: translateY(-2px); }
 
 .nav-toggle {
   display: none;
@@ -674,7 +777,19 @@ a { color: inherit; text-decoration: none; }
 .fab-line:hover { transform: scale(1.08); }
 
 /* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .main-nav { gap: 20px; font-size: 0.95rem; }
+  .nav-cta { padding: 12px 22px; font-size: 0.94rem; }
+  .brand-text { display: none; }
+}
+
 @media (max-width: 960px) {
+  /* 資訊條收合：只留電話與社群圖示 */
+  .topbar-tagline,
+  .topbar-divider,
+  .topbar-follow { display: none; }
+  .topbar-inner { height: 48px; justify-content: space-between; }
+
   .hero-inner { grid-template-columns: minmax(0, 1fr); text-align: center; }
   /* 手機版把照片移回文字上方，維持「先看到人、再看到介紹」的閱讀順序 */
   .hero-photo-stage { order: 1; margin: 0 auto 8px; }
@@ -690,10 +805,17 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 720px) {
   .main-nav { display: none; }
   .nav-toggle { display: flex; }
-  .header-cta { display: none; }
-  .brand-logo { width: 62px; height: 62px; }
-  .brand { font-size: 1rem; gap: 8px; }
-  .header-inner { height: 78px; }
+  /* 空間有限：保留姓名，收掉店名副標，並讓品牌區可收縮避免擠爆導覽列 */
+  .brand-text { display: flex; min-width: 0; }
+  .brand-sub { display: none; }
+  .brand-logo { width: 54px; height: 54px; }
+  .brand { font-size: 1rem; gap: 8px; flex-shrink: 1; min-width: 0; }
+  .navbar-inner { gap: 10px; }
+  .navbar-inner { height: 72px; }
+  .nav-cta { padding: 10px 16px; font-size: 0.86rem; margin-left: auto; }
+  .social-icon { width: 30px; height: 30px; }
+  .social-icon svg { width: 16px; height: 16px; }
+  .topbar-phone { font-size: 0.95rem; }
   .booking-system-card { padding: 16px; gap: 12px; }
   .booking-system-arrow { display: none; }
   .hero-photo-stage { width: 260px; }
@@ -702,12 +824,15 @@ a { color: inherit; text-decoration: none; }
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 82px;
+    top: 100%;
     left: 0;
     right: 0;
+    margin: 0;
     background: var(--uch-white);
     padding: 20px 24px;
     border-bottom: 1px solid var(--uch-border);
+    box-shadow: 0 12px 24px rgba(79, 111, 100, 0.14);
     gap: 18px;
   }
+  .site-header.nav-open .main-nav a::after { display: none; }
 }

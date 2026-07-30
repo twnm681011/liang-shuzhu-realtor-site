@@ -14,6 +14,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // 捲動時標示目前所在的區塊
+  const sectionLinks = [...document.querySelectorAll('.main-nav a[href^="#"]')]
+    .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")) }))
+    .filter((item) => item.section);
+
+  if (sectionLinks.length) {
+    const setActive = () => {
+      const line = window.scrollY + window.innerHeight * 0.3;
+      let current = sectionLinks[0];
+      sectionLinks.forEach((item) => {
+        if (item.section.offsetTop <= line) current = item;
+      });
+      sectionLinks.forEach(({ link }) => link.classList.toggle("is-active", link === current.link));
+    };
+    setActive();
+    window.addEventListener("scroll", setActive, { passive: true });
+  }
+
   const form = document.getElementById("bookingForm");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
