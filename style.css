@@ -179,13 +179,14 @@ a { color: inherit; text-decoration: none; }
 .hero-inner {
   position: relative;
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 56px;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 64px;
   align-items: center;
 }
 .hero-photo-stage {
   position: relative;
-  width: 320px;
+  width: 340px;
+  margin-left: auto;
 }
 .hero-photo-decor {
   position: absolute;
@@ -194,15 +195,15 @@ a { color: inherit; text-decoration: none; }
   background:
     radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.6px) 0 0/18px 18px,
     linear-gradient(135deg, var(--uch-secondary), var(--uch-primary) 70%);
-  transform: translate(22px, 22px) rotate(-4deg);
-  box-shadow: 0 20px 40px rgba(0,83,53,0.25);
+  transform: translate(20px, 22px) rotate(4deg);
+  box-shadow: 0 20px 40px rgba(79, 111, 100, 0.28);
   z-index: 0;
 }
 .hero-photo-wrap {
   position: relative;
   z-index: 1;
-  width: 320px;
-  height: 400px;
+  width: 340px;
+  height: 430px;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
@@ -218,7 +219,23 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(0,83,53,0) 42%, rgba(3,45,29,0.82) 100%);
+  background:
+    /* 上方漸層：把原本的白色背景暈染成品牌綠，往下自然淡出 */
+    linear-gradient(
+      180deg,
+      rgba(79, 111, 100, 0.92) 0%,
+      rgba(79, 111, 100, 0.62) 12%,
+      rgba(79, 111, 100, 0.28) 24%,
+      rgba(79, 111, 100, 0.08) 34%,
+      rgba(79, 111, 100, 0) 44%
+    ),
+    /* 下方漸層：讓白字姓名職稱清楚可讀 */
+    linear-gradient(
+      180deg,
+      rgba(51, 69, 61, 0) 54%,
+      rgba(51, 69, 61, 0.5) 76%,
+      rgba(51, 69, 61, 0.88) 100%
+    );
   pointer-events: none;
 }
 .hero-photo-caption {
@@ -653,8 +670,10 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
-  .hero-inner { grid-template-columns: 1fr; text-align: center; }
-  .hero-photo-stage { margin: 0 auto; }
+  .hero-inner { grid-template-columns: minmax(0, 1fr); text-align: center; }
+  /* 手機版把照片移回文字上方，維持「先看到人、再看到介紹」的閱讀順序 */
+  .hero-photo-stage { order: 1; margin: 0 auto 8px; }
+  .hero-text { order: 2; }
   .hero-motto { margin-left: auto; margin-right: auto; text-align: left; width: fit-content; }
   .hero-actions { justify-content: center; }
   .hero-badges { justify-content: center; text-align: left; }
@@ -672,8 +691,8 @@ a { color: inherit; text-decoration: none; }
   .header-inner { height: 78px; }
   .booking-system-card { padding: 16px; gap: 12px; }
   .booking-system-arrow { display: none; }
-  .hero-photo-stage { width: 240px; }
-  .hero-photo-wrap { width: 240px; height: 300px; }
+  .hero-photo-stage { width: 260px; }
+  .hero-photo-wrap { width: 260px; height: 330px; }
   .site-header.nav-open .main-nav {
     display: flex;
     flex-direction: column;
