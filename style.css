@@ -109,12 +109,15 @@ a { color: inherit; text-decoration: none; }
   gap: 12px;
 }
 .brand-logo {
-  height: 96px;
-  width: auto;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--uch-white);
   object-fit: contain;
-  align-self: flex-end;
-  margin-bottom: -10px;
+  padding: 5px;
+  border: 1px solid var(--uch-border);
+  box-shadow: 0 4px 14px rgba(79, 111, 100, 0.16);
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.25; }
 .brand-sub { font-weight: 500; color: var(--uch-text-muted); font-size: 0.78rem; }
@@ -304,6 +307,11 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.04em;
   margin: 0 0 12px;
 }
+.hero-text {
+  /* 讓文字區塊靠向右側的形象照，收掉中間過大的空白 */
+  max-width: 600px;
+  margin-left: auto;
+}
 .hero-text h1 {
   font-family: "Noto Serif TC", serif;
   font-size: clamp(2.4rem, 5vw, 3.4rem);
@@ -318,9 +326,6 @@ a { color: inherit; text-decoration: none; }
   font-weight: 600;
   color: var(--uch-accent);
   margin: 0 0 20px;
-  position: relative;
-  padding-left: 20px;
-  border-left: 3px solid var(--uch-accent);
 }
 .hero-sub {
   font-size: 1.15rem;
@@ -673,7 +678,7 @@ a { color: inherit; text-decoration: none; }
   .hero-inner { grid-template-columns: minmax(0, 1fr); text-align: center; }
   /* 手機版把照片移回文字上方，維持「先看到人、再看到介紹」的閱讀順序 */
   .hero-photo-stage { order: 1; margin: 0 auto 8px; }
-  .hero-text { order: 2; }
+  .hero-text { order: 2; max-width: none; margin-left: 0; }
   .hero-motto { margin-left: auto; margin-right: auto; text-align: left; width: fit-content; }
   .hero-actions { justify-content: center; }
   .hero-badges { justify-content: center; text-align: left; }
@@ -686,7 +691,7 @@ a { color: inherit; text-decoration: none; }
   .main-nav { display: none; }
   .nav-toggle { display: flex; }
   .header-cta { display: none; }
-  .brand-logo { height: 72px; margin-bottom: -8px; }
+  .brand-logo { width: 62px; height: 62px; }
   .brand { font-size: 1rem; gap: 8px; }
   .header-inner { height: 78px; }
   .booking-system-card { padding: 16px; gap: 12px; }
