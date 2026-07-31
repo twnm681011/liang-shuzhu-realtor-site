@@ -595,7 +595,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Services ---------- */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 24px;
 }
 .service-card {
@@ -746,7 +746,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: #3F5950;
+  background: #334841;
   color: rgba(255,255,255,0.75);
 }
 .footer-grid {
