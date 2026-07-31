@@ -33,17 +33,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const form = document.getElementById("bookingForm");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = form.name.value.trim();
-    const phone = form.phone.value.trim();
-    const topic = form.topic.value;
-    const message = form.message.value.trim();
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const phone = form.phone.value.trim();
+      const topic = form.topic.value;
+      const message = form.message.value.trim();
 
-    const text = encodeURIComponent(
-      `您好，我是 ${name}，電話 ${phone}。\n想諮詢：${topic}\n${message ? "內容：" + message : ""}`
-    );
+      const text = encodeURIComponent(
+        `您好，我是 ${name}，電話 ${phone}。\n想諮詢：${topic}\n${message ? "內容：" + message : ""}`
+      );
 
-    window.open(`https://line.me/ti/p/~twnm681011?text=${text}`, "_blank", "noopener");
-  });
+      window.open(`https://line.me/ti/p/~twnm681011?text=${text}`, "_blank", "noopener");
+    });
+  }
+
+  // 房產知識頁：分類篩選
+  const filterBtns = document.querySelectorAll(".know-filter-btn");
+  const knowledgeCards = document.querySelectorAll(".knowledge-card");
+  if (filterBtns.length && knowledgeCards.length) {
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        const filter = btn.dataset.filter;
+        knowledgeCards.forEach((card) => {
+          const show = filter === "all" || card.dataset.category === filter;
+          card.style.display = show ? "" : "none";
+        });
+      });
+    });
+  }
 });
