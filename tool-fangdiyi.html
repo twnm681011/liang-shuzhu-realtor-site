@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>租屋族戶籍遷入前，這些事要先問清楚｜梁淑珠 - 桃園房仲專家</title>
-<meta name="description" content="租屋可以遷戶籍嗎？房東可以拒絕嗎？需要準備哪些文件？桃園房仲梁淑珠整理租屋遷戶籍的權利與注意事項。">
+<title>房地合一稅試算｜梁淑珠 - 桃園房仲專家</title>
+<meta name="description" content="輸入取得日期、出售價格與成本，快速試算房地合一稅適用稅率與概估稅額。桃園房仲梁淑珠提供。">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://example.com/article-huji.html">
+<link rel="canonical" href="https://example.com/tool-fangdiyi.html">
 
-<meta property="og:type" content="article">
-<meta property="og:title" content="租屋族戶籍遷入前，這些事要先問清楚｜梁淑珠 - 桃園房仲專家">
-<meta property="og:description" content="租屋可以遷戶籍嗎？房東可以拒絕嗎？需要準備哪些文件？桃園房仲梁淑珠整理租屋遷戶籍的權利與注意事項。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="房地合一稅試算｜梁淑珠 - 桃園房仲專家">
+<meta property="og:description" content="輸入取得日期、出售價格與成本，快速試算房地合一稅適用稅率與概估稅額。">
 <meta property="og:image" content="assets/mascot.png">
 <meta property="og:locale" content="zh_TW">
 
@@ -56,9 +56,9 @@
         <a href="index.html#service-area">服務區域</a>
         <a href="index.html#achievements">我的戰績</a>
         <a href="index.html#services">服務項目</a>
-        <a href="know.html" class="is-active">房產知識</a>
+        <a href="index.html#tools" class="is-active">免費工具/查詢</a>
+        <a href="know.html">房產知識</a>
         <a href="index.html#booking">預約諮詢</a>
-        <a href="index.html#tools">免費工具/查詢</a>
       </nav>
       <a class="nav-cta" href="index.html#booking">免費諮詢預約</a>
       <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
@@ -76,70 +76,81 @@
       <nav class="article-breadcrumb" aria-label="麵包屑">
         <a href="index.html#top">首頁</a>
         <span aria-hidden="true">/</span>
-        <a href="know.html">房產知識</a>
+        <a href="index.html#tools">免費工具</a>
         <span aria-hidden="true">/</span>
-        <span>租屋族戶籍遷入前要問清楚</span>
+        <span>房地合一稅試算</span>
       </nav>
 
-      <span class="knowledge-tag">社區與租屋</span>
-      <h1 class="article-title">租屋族戶籍遷入前，這些事要先問清楚</h1>
-      <p class="article-meta">梁淑珠｜資料日期：2026-07-30｜依現行戶籍法及內政部版租賃定型化契約規定整理</p>
-
-      <div class="article-hero-image">
-        <img src="assets/articles/huji.jpg" alt="租屋族戶籍遷入前">
-      </div>
+      <span class="knowledge-tag">免費工具</span>
+      <h1 class="article-title">房地合一稅試算</h1>
+      <p class="article-meta">依現行房地合一所得稅（境內居住者）稅率級距試算，僅供概估參考</p>
 
       <p class="article-lead">
-        租房子想把戶籍遷過去，卻常常聽到房東說「不行」？其實遷戶籍是承租人的權利，房東原則上不能拒絕。這篇整理租屋遷戶籍該知道的幾件事，租屋前先弄清楚，避免跟房東起爭執。
+        填入取得與出售的基本資料，快速抓出大概的持有期間、適用稅率與概估稅額。實際稅額還會受土地漲價總數額扣除等因素影響，正式數字請以國稅局核算或會計師試算為準。
       </p>
 
-      <h2>房東可以禁止房客遷入戶籍嗎？</h2>
-      <p>
-        原則上不行。自 2020 年 9 月 1 日起，內政部公告的租賃定型化契約規定，租約中<strong>不得記載「承租人不得遷入戶籍」</strong>等限制條款，
-        若房東違反規定，最高可處新臺幣 3 萬至 30 萬元罰鍰。也就是說，就算房東口頭表示不同意，房客仍可以依實際居住事實向戶政機關申請遷入。
-      </p>
+      <form class="calc-form" id="fangdiyiForm">
+        <div class="calc-grid">
+          <label>
+            取得日期
+            <input type="date" id="acquireDate" required>
+          </label>
+          <label>
+            預計（或已）出售日期
+            <input type="date" id="sellDate" required>
+          </label>
+          <label>
+            出售價格（萬元）
+            <input type="number" id="price" min="0" step="1" placeholder="例如 1200" required>
+          </label>
+          <label>
+            取得成本（萬元）
+            <input type="number" id="cost" min="0" step="1" placeholder="例如 900" required>
+          </label>
+          <label>
+            相關費用（萬元）
+            <input type="number" id="fees" min="0" step="1" placeholder="仲介費、代書費、裝修等" value="0">
+          </label>
+          <label class="calc-checkbox">
+            <input type="checkbox" id="selfUse">
+            <span>符合自住優惠（本人／配偶／未成年子女設籍並居住滿6年，且6年內僅適用一次、無出租營業使用）</span>
+          </label>
+        </div>
+        <p class="calc-hint">取得成本說明：一般買賣以當初買入價格填入；若為繼承或受贈取得，請填入繼承／受贈當時的房屋評定現值加公告土地現值，而非原屋主當初的買價。</p>
+      </form>
 
-      <h2>遷戶籍要準備哪些文件？</h2>
-      <ul class="article-list">
-        <li>原戶籍地戶口名簿正本、遷入者國民身分證正本及印章（或簽名）</li>
-        <li>遷入時需一併換領國民身分證</li>
-        <li>若委託他人代辦，需準備委託書及受委託人身分證、印章</li>
-        <li>父或母單獨為未成年子女申辦，需另一方同意書</li>
-        <li>若要另立一戶，需另提單獨立戶的證明文件</li>
-        <li>下列文件擇一（正本）：建物權狀、最新房屋稅完稅稅單、經法院公證之租賃契約，或租賃契約搭配所有權人同意書</li>
-      </ul>
-      <p>
-        文件備齊後，可以直接到遷入地的戶政事務所臨櫃辦理，通常當天就可以完成。
-      </p>
-
-      <h2>遷戶籍前，這些事最好先跟房東溝通</h2>
-      <p>
-        雖然法律上房東不能拒絕，但實務上遷戶籍會讓房東的房屋稅籍從「自用」變成「非自用」，稅率會提高，如果房東原本沒有申報租賃所得，也可能因此被國稅局查到補稅。
-        這些現實層面的考量，常常是房東不願配合的原因。建議租屋前把這件事跟房東講清楚、達成共識，會比入住後才要求遷入更容易溝通。
-      </p>
-
-      <div class="article-callout">
-        <strong>淑珠提醒：</strong>之後搬離租屋處時，記得同步辦理戶籍遷出。如果搬走了戶籍卻沒遷，法院文件、催討信件都還是會寄到原租屋地址，對房東和自己都會造成困擾。
+      <div class="calc-result" id="fangdiyiResult">
+        <h2>試算結果</h2>
+        <div class="calc-result-grid">
+          <div class="calc-result-item">
+            <span class="calc-result-label">持有期間</span>
+            <span class="calc-result-value" id="rHoldPeriod">—</span>
+          </div>
+          <div class="calc-result-item">
+            <span class="calc-result-label">課稅所得（售價－成本－費用）</span>
+            <span class="calc-result-value" id="rGain">—</span>
+          </div>
+          <div class="calc-result-item">
+            <span class="calc-result-label">適用稅率</span>
+            <span class="calc-result-value" id="rRate">—</span>
+          </div>
+          <div class="calc-result-item calc-result-featured">
+            <span class="calc-result-label">概估應納稅額</span>
+            <span class="calc-result-value" id="rTax">—</span>
+          </div>
+        </div>
+        <p class="calc-note" id="rNote"></p>
       </div>
 
-      <h2>淑珠的實務建議</h2>
-      <p>
-        租屋族如果有遷戶籍的需求（例如小孩就學、投票、申請租屋補助等），建議在簽約前就跟房東說清楚，把相關約定寫進租約附註或補充條款，
-        比較不會之後產生認知落差或爭議。
-      </p>
-      <p>
-        如果您正在找租屋或有相關法規上的疑問，歡迎找我聊聊。
-      </p>
-
       <div class="article-source">
-        <strong>資料來源：</strong>戶籍法相關規定、內政部公告租賃定型化契約應記載及不得記載事項（2020年9月1日施行）。
-        本文為一般性說明，個別情況及房屋稅籍認定請以戶政機關、地方稅務機關最新規定及個案認定為準。
+        <strong>試算依據：</strong>房地合一所得稅（境內居住者）持有期間稅率：2年以內45%、超過2年至5年35%、超過5年至10年20%、超過10年15%；符合自住優惠者，課稅所得400萬元以下免稅，超過部分按10%課徵。
+        本工具未計入土地漲價總數額扣除、非境內居住者稅率差異及其他個人所得稅事宜，僅供初步概估，不構成稅務建議，正式申報請洽會計師或國稅局。
       </div>
 
       <div class="article-cta">
         <div>
-          <p class="article-cta-title">找租屋或有法規問題想問？</p>
-          <p class="article-cta-desc">歡迎直接找淑珠聊聊。</p>
+          <p class="article-cta-title">想確認實際稅額？</p>
+          <p class="article-cta-desc">歡迎找淑珠聊聊您的物件狀況，我可以協助您釐清方向。</p>
         </div>
         <div class="know-cta-actions">
           <a class="btn btn-line btn-lg" href="https://line.me/ti/p/~twnm681011" target="_blank" rel="noopener">加 LINE 立即諮詢</a>
@@ -147,7 +158,7 @@
         </div>
       </div>
 
-      <a class="article-back" href="know.html">← 回房產知識列表</a>
+      <a class="article-back" href="index.html#tools">← 回免費工具列表</a>
 
     </div>
   </article>
@@ -199,5 +210,92 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+(function () {
+  const form = document.getElementById("fangdiyiForm");
+  const acquireDate = document.getElementById("acquireDate");
+  const sellDate = document.getElementById("sellDate");
+  const price = document.getElementById("price");
+  const cost = document.getElementById("cost");
+  const fees = document.getElementById("fees");
+  const selfUse = document.getElementById("selfUse");
+
+  const rHoldPeriod = document.getElementById("rHoldPeriod");
+  const rGain = document.getElementById("rGain");
+  const rRate = document.getElementById("rRate");
+  const rTax = document.getElementById("rTax");
+  const rNote = document.getElementById("rNote");
+
+  const today = new Date().toISOString().slice(0, 10);
+  sellDate.value = today;
+
+  function monthsBetween(a, b) {
+    return (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth()) + (b.getDate() >= a.getDate() ? 0 : -1);
+  }
+
+  function fmt(n) {
+    return n.toLocaleString("zh-Hant-TW", { maximumFractionDigits: 0 });
+  }
+
+  function calc() {
+    const aVal = acquireDate.value;
+    const sVal = sellDate.value;
+    const priceVal = parseFloat(price.value);
+    const costVal = parseFloat(cost.value);
+    const feesVal = parseFloat(fees.value) || 0;
+
+    if (!aVal || !sVal || isNaN(priceVal) || isNaN(costVal)) {
+      rHoldPeriod.textContent = "—";
+      rGain.textContent = "—";
+      rRate.textContent = "—";
+      rTax.textContent = "—";
+      rNote.textContent = "";
+      return;
+    }
+
+    const a = new Date(aVal);
+    const s = new Date(sVal);
+    let months = monthsBetween(a, s);
+    if (months < 0) months = 0;
+    const years = Math.floor(months / 12);
+    const remMonths = months % 12;
+
+    rHoldPeriod.textContent = `${years} 年 ${remMonths} 個月`;
+
+    const gain = priceVal - costVal - feesVal;
+    rGain.textContent = `${fmt(gain)} 萬元`;
+
+    let rate, rateLabel, tax, note;
+
+    if (selfUse.checked && months >= 72) {
+      if (gain <= 400) {
+        rate = 0;
+        rateLabel = "自住優惠（400萬以下免稅）";
+        tax = 0;
+        note = "課稅所得在400萬元以下，落在自住優惠免稅範圍內（試算為0元）。實際仍須符合設籍居住滿6年、6年內僅使用一次、無出租營業使用等要件。";
+      } else {
+        rate = 0.10;
+        rateLabel = "自住優惠：超過400萬部分 10%";
+        tax = (gain - 400) * rate;
+        note = "已扣除400萬元免稅額度，超過部分按10%試算。實際仍須符合自住優惠各項要件，請以國稅局認定為準。";
+      }
+    } else {
+      if (months <= 24) { rate = 0.45; rateLabel = "45%（持有2年以內）"; }
+      else if (months <= 60) { rate = 0.35; rateLabel = "35%（持有超過2年至5年）"; }
+      else if (months <= 120) { rate = 0.20; rateLabel = "20%（持有超過5年至10年）"; }
+      else { rate = 0.15; rateLabel = "15%（持有超過10年）"; }
+      tax = gain > 0 ? gain * rate : 0;
+      note = "本試算未扣除土地漲價總數額，實際課稅所得可能更低，正式稅額請洽會計師或國稅局核算。";
+    }
+
+    rRate.textContent = rateLabel;
+    rTax.textContent = gain > 0 ? `約 ${fmt(tax)} 萬元` : "無獲利，免稅";
+    rNote.textContent = note;
+  }
+
+  form.addEventListener("input", calc);
+  calc();
+})();
+</script>
 </body>
 </html>

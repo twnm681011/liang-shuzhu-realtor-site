@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>租屋族戶籍遷入前，這些事要先問清楚｜梁淑珠 - 桃園房仲專家</title>
-<meta name="description" content="租屋可以遷戶籍嗎？房東可以拒絕嗎？需要準備哪些文件？桃園房仲梁淑珠整理租屋遷戶籍的權利與注意事項。">
+<title>購屋能力試算｜梁淑珠 - 桃園房仲專家</title>
+<meta name="description" content="輸入月收入、自備款與貸款條件，快速估算您負擔得起的購屋總價與貸款金額。桃園房仲梁淑珠提供。">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://example.com/article-huji.html">
+<link rel="canonical" href="https://example.com/tool-goumai.html">
 
-<meta property="og:type" content="article">
-<meta property="og:title" content="租屋族戶籍遷入前，這些事要先問清楚｜梁淑珠 - 桃園房仲專家">
-<meta property="og:description" content="租屋可以遷戶籍嗎？房東可以拒絕嗎？需要準備哪些文件？桃園房仲梁淑珠整理租屋遷戶籍的權利與注意事項。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="購屋能力試算｜梁淑珠 - 桃園房仲專家">
+<meta property="og:description" content="輸入月收入、自備款與貸款條件，快速估算您負擔得起的購屋總價與貸款金額。">
 <meta property="og:image" content="assets/mascot.png">
 <meta property="og:locale" content="zh_TW">
 
@@ -56,9 +56,9 @@
         <a href="index.html#service-area">服務區域</a>
         <a href="index.html#achievements">我的戰績</a>
         <a href="index.html#services">服務項目</a>
-        <a href="know.html" class="is-active">房產知識</a>
+        <a href="index.html#tools" class="is-active">免費工具/查詢</a>
+        <a href="know.html">房產知識</a>
         <a href="index.html#booking">預約諮詢</a>
-        <a href="index.html#tools">免費工具/查詢</a>
       </nav>
       <a class="nav-cta" href="index.html#booking">免費諮詢預約</a>
       <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
@@ -76,70 +76,81 @@
       <nav class="article-breadcrumb" aria-label="麵包屑">
         <a href="index.html#top">首頁</a>
         <span aria-hidden="true">/</span>
-        <a href="know.html">房產知識</a>
+        <a href="index.html#tools">免費工具</a>
         <span aria-hidden="true">/</span>
-        <span>租屋族戶籍遷入前要問清楚</span>
+        <span>購屋能力試算</span>
       </nav>
 
-      <span class="knowledge-tag">社區與租屋</span>
-      <h1 class="article-title">租屋族戶籍遷入前，這些事要先問清楚</h1>
-      <p class="article-meta">梁淑珠｜資料日期：2026-07-30｜依現行戶籍法及內政部版租賃定型化契約規定整理</p>
-
-      <div class="article-hero-image">
-        <img src="assets/articles/huji.jpg" alt="租屋族戶籍遷入前">
-      </div>
+      <span class="knowledge-tag">免費工具</span>
+      <h1 class="article-title">購屋能力試算</h1>
+      <p class="article-meta">依月收入負擔比與自備款反推可負擔總價，僅供概估參考</p>
 
       <p class="article-lead">
-        租房子想把戶籍遷過去，卻常常聽到房東說「不行」？其實遷戶籍是承租人的權利，房東原則上不能拒絕。這篇整理租屋遷戶籍該知道的幾件事，租屋前先弄清楚，避免跟房東起爭執。
+        填入家庭月收入、目前每月固定負擔與自備款，快速估算您大概負擔得起的購屋總價與貸款金額。實際核貸金額與成數，仍需依銀行對收入、信用、負債比的審核結果為準。
       </p>
 
-      <h2>房東可以禁止房客遷入戶籍嗎？</h2>
-      <p>
-        原則上不行。自 2020 年 9 月 1 日起，內政部公告的租賃定型化契約規定，租約中<strong>不得記載「承租人不得遷入戶籍」</strong>等限制條款，
-        若房東違反規定，最高可處新臺幣 3 萬至 30 萬元罰鍰。也就是說，就算房東口頭表示不同意，房客仍可以依實際居住事實向戶政機關申請遷入。
-      </p>
+      <form class="calc-form" id="goumaiForm">
+        <div class="calc-grid">
+          <label>
+            家庭月收入（萬元）
+            <input type="number" id="income" min="0" step="0.5" placeholder="例如 8" required>
+          </label>
+          <label>
+            每月其他固定負擔（萬元）
+            <input type="number" id="debt" min="0" step="0.5" placeholder="車貸、信貸、學貸等" value="0">
+          </label>
+          <label>
+            自備款（萬元）
+            <input type="number" id="downpayment" min="0" step="10" placeholder="例如 300" required>
+          </label>
+          <label>
+            貸款年限（年）
+            <input type="number" id="years" min="1" max="40" step="1" value="30">
+          </label>
+          <label>
+            預估貸款利率（％）
+            <input type="number" id="rate" min="0" max="10" step="0.01" value="2.1">
+          </label>
+          <label>
+            預估貸款成數（％）
+            <input type="number" id="ltv" min="10" max="90" step="5" value="80">
+          </label>
+        </div>
+        <p class="calc-hint">月付負擔比例採常見的收入40%上限估算，僅供參考，實際銀行核貸標準（如DBR、DSR）會依個人信用與負債狀況而不同。</p>
+      </form>
 
-      <h2>遷戶籍要準備哪些文件？</h2>
-      <ul class="article-list">
-        <li>原戶籍地戶口名簿正本、遷入者國民身分證正本及印章（或簽名）</li>
-        <li>遷入時需一併換領國民身分證</li>
-        <li>若委託他人代辦，需準備委託書及受委託人身分證、印章</li>
-        <li>父或母單獨為未成年子女申辦，需另一方同意書</li>
-        <li>若要另立一戶，需另提單獨立戶的證明文件</li>
-        <li>下列文件擇一（正本）：建物權狀、最新房屋稅完稅稅單、經法院公證之租賃契約，或租賃契約搭配所有權人同意書</li>
-      </ul>
-      <p>
-        文件備齊後，可以直接到遷入地的戶政事務所臨櫃辦理，通常當天就可以完成。
-      </p>
-
-      <h2>遷戶籍前，這些事最好先跟房東溝通</h2>
-      <p>
-        雖然法律上房東不能拒絕，但實務上遷戶籍會讓房東的房屋稅籍從「自用」變成「非自用」，稅率會提高，如果房東原本沒有申報租賃所得，也可能因此被國稅局查到補稅。
-        這些現實層面的考量，常常是房東不願配合的原因。建議租屋前把這件事跟房東講清楚、達成共識，會比入住後才要求遷入更容易溝通。
-      </p>
-
-      <div class="article-callout">
-        <strong>淑珠提醒：</strong>之後搬離租屋處時，記得同步辦理戶籍遷出。如果搬走了戶籍卻沒遷，法院文件、催討信件都還是會寄到原租屋地址，對房東和自己都會造成困擾。
+      <div class="calc-result" id="goumaiResult">
+        <h2>試算結果</h2>
+        <div class="calc-result-grid">
+          <div class="calc-result-item">
+            <span class="calc-result-label">可負擔月付金上限</span>
+            <span class="calc-result-value" id="rMonthly">—</span>
+          </div>
+          <div class="calc-result-item">
+            <span class="calc-result-label">依還款能力可貸金額</span>
+            <span class="calc-result-value" id="rLoanByIncome">—</span>
+          </div>
+          <div class="calc-result-item">
+            <span class="calc-result-label">依自備款可購總價</span>
+            <span class="calc-result-value" id="rPriceByDown">—</span>
+          </div>
+          <div class="calc-result-item calc-result-featured">
+            <span class="calc-result-label">建議可負擔購屋總價</span>
+            <span class="calc-result-value" id="rFinalPrice">—</span>
+          </div>
+        </div>
+        <p class="calc-note" id="rNote"></p>
       </div>
 
-      <h2>淑珠的實務建議</h2>
-      <p>
-        租屋族如果有遷戶籍的需求（例如小孩就學、投票、申請租屋補助等），建議在簽約前就跟房東說清楚，把相關約定寫進租約附註或補充條款，
-        比較不會之後產生認知落差或爭議。
-      </p>
-      <p>
-        如果您正在找租屋或有相關法規上的疑問，歡迎找我聊聊。
-      </p>
-
       <div class="article-source">
-        <strong>資料來源：</strong>戶籍法相關規定、內政部公告租賃定型化契約應記載及不得記載事項（2020年9月1日施行）。
-        本文為一般性說明，個別情況及房屋稅籍認定請以戶政機關、地方稅務機關最新規定及個案認定為準。
+        <strong>試算依據：</strong>可負擔月付金以家庭月收入的40%扣除其他固定負擔估算；依此月付金與貸款年限、利率，用年金現值公式反推可貸金額；再分別以「貸款成數」與「自備款」兩個角度估算可購總價，取兩者較低者為建議總價。
+        本工具未考量銀行實際徵審標準、其他收入來源與費用支出，僅供初步概估，不構成貸款承諾，實際額度與利率請以承貸銀行核定為準。
       </div>
 
       <div class="article-cta">
         <div>
-          <p class="article-cta-title">找租屋或有法規問題想問？</p>
-          <p class="article-cta-desc">歡迎直接找淑珠聊聊。</p>
+          <p class="article-cta-title">想知道自己實際能買多少？</p>
+          <p class="article-cta-desc">歡迎找淑珠聊聊您的狀況，我可以幫您先評估方向。</p>
         </div>
         <div class="know-cta-actions">
           <a class="btn btn-line btn-lg" href="https://line.me/ti/p/~twnm681011" target="_blank" rel="noopener">加 LINE 立即諮詢</a>
@@ -147,7 +158,7 @@
         </div>
       </div>
 
-      <a class="article-back" href="know.html">← 回房產知識列表</a>
+      <a class="article-back" href="index.html#tools">← 回免費工具列表</a>
 
     </div>
   </article>
@@ -199,5 +210,82 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+(function () {
+  const form = document.getElementById("goumaiForm");
+  const income = document.getElementById("income");
+  const debt = document.getElementById("debt");
+  const downpayment = document.getElementById("downpayment");
+  const years = document.getElementById("years");
+  const rate = document.getElementById("rate");
+  const ltv = document.getElementById("ltv");
+
+  const rMonthly = document.getElementById("rMonthly");
+  const rLoanByIncome = document.getElementById("rLoanByIncome");
+  const rPriceByDown = document.getElementById("rPriceByDown");
+  const rFinalPrice = document.getElementById("rFinalPrice");
+  const rNote = document.getElementById("rNote");
+
+  function fmt(n) {
+    return n.toLocaleString("zh-Hant-TW", { maximumFractionDigits: 0 });
+  }
+
+  function calc() {
+    const incomeVal = parseFloat(income.value);
+    const debtVal = parseFloat(debt.value) || 0;
+    const downVal = parseFloat(downpayment.value);
+    const yearsVal = parseFloat(years.value) || 30;
+    const rateVal = parseFloat(rate.value) || 0;
+    const ltvVal = (parseFloat(ltv.value) || 80) / 100;
+
+    if (isNaN(incomeVal) || isNaN(downVal)) {
+      rMonthly.textContent = "—";
+      rLoanByIncome.textContent = "—";
+      rPriceByDown.textContent = "—";
+      rFinalPrice.textContent = "—";
+      rNote.textContent = "";
+      return;
+    }
+
+    const monthlyCap = incomeVal * 0.4 - debtVal;
+
+    if (monthlyCap <= 0) {
+      rMonthly.textContent = `${fmt(monthlyCap)} 萬元`;
+      rLoanByIncome.textContent = "0 萬元";
+      rPriceByDown.textContent = `${fmt(downVal / (1 - ltvVal))} 萬元`;
+      rFinalPrice.textContent = "0 萬元";
+      rNote.textContent = "目前每月固定負擔已超過建議上限，可能難以再負擔房貸月付金，建議先調整負債狀況或提高自備款比例。";
+      return;
+    }
+
+    rMonthly.textContent = `${fmt(monthlyCap)} 萬元`;
+
+    const monthlyRate = rateVal / 100 / 12;
+    const n = yearsVal * 12;
+    let loanByIncome;
+    if (monthlyRate === 0) {
+      loanByIncome = monthlyCap * n;
+    } else {
+      loanByIncome = monthlyCap * (1 - Math.pow(1 + monthlyRate, -n)) / monthlyRate;
+    }
+
+    const priceByIncome = loanByIncome / ltvVal;
+    const priceByDown = downVal / (1 - ltvVal);
+    const finalPrice = Math.min(priceByIncome, priceByDown);
+
+    rLoanByIncome.textContent = `約 ${fmt(loanByIncome)} 萬元`;
+    rPriceByDown.textContent = `約 ${fmt(priceByDown)} 萬元`;
+    rFinalPrice.textContent = `約 ${fmt(finalPrice)} 萬元`;
+
+    if (priceByIncome < priceByDown) {
+      rNote.textContent = "目前是「還款能力」較吃緊，建議可負擔總價以收入試算為主；若能提高月付能力，可購總價還有機會再拉高。";
+    } else {
+      rNote.textContent = "目前是「自備款」較吃緊，建議可負擔總價以自備款試算為主；若能增加自備款，可購總價還有機會再拉高。";
+    }
+  }
+
+  form.addEventListener("input", calc);
+})();
+</script>
 </body>
 </html>
