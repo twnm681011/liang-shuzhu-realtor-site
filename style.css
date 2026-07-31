@@ -885,12 +885,13 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
   position: relative;
   overflow: hidden;
-  font-size: 3.4rem;
-  background:
-    radial-gradient(circle, rgba(255,255,255,0.35) 1.5px, transparent 1.6px) 0 0/18px 18px,
-    linear-gradient(135deg, var(--uch-secondary), var(--uch-primary) 75%);
-  color: var(--uch-white);
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+  background: linear-gradient(135deg, var(--uch-secondary), var(--uch-primary) 75%);
+}
+.knowledge-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .knowledge-card-body {
   padding: 26px 28px;
@@ -960,6 +961,20 @@ a { color: inherit; text-decoration: none; }
   color: var(--uch-text-muted);
   font-size: 0.85rem;
   margin: 0 0 28px;
+}
+.article-hero-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0 0 32px;
+  box-shadow: var(--shadow);
+}
+.article-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .article-lead {
   font-size: 1.08rem;
