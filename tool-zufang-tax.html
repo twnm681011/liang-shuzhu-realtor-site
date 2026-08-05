@@ -1,253 +1,561 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>房東出租稅務試算（內部工具）｜梁淑珠</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="style.css">
-<style>
-  .zf-badge {
-    display: inline-block;
-    background: var(--uch-bg-soft);
-    color: var(--uch-primary);
-    font-weight: 700;
-    font-size: 0.85rem;
-    padding: 4px 14px;
-    border-radius: 999px;
-    margin-bottom: 10px;
-  }
-  .zf-section { margin: 32px 0 8px; }
-  .zf-section-title {
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: var(--uch-primary);
-    margin-bottom: 4px;
-  }
-  .zf-section-sub { color: var(--uch-text-muted); font-size: 0.88rem; margin-bottom: 14px; }
-  .zf-table-wrap { overflow-x: auto; margin-top: 18px; border-radius: var(--radius); border: 1px solid var(--uch-border); }
-  table.zf-table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 0.95rem; }
-  table.zf-table th, table.zf-table td { padding: 12px 14px; border-bottom: 1px solid var(--uch-border); text-align: left; }
-  table.zf-table thead th { background: var(--uch-bg-soft); color: var(--uch-primary); position: sticky; top: 0; }
-  table.zf-table th.zf-row-label { width: 26%; color: var(--uch-text-muted); font-weight: 500; background: #fff; }
-  table.zf-table td.zf-best { background: #eef6ee; font-weight: 700; color: var(--uch-primary); }
-  table.zf-table tr.zf-total-row td, table.zf-table tr.zf-total-row th { font-weight: 700; font-size: 1.02rem; border-top: 2px solid var(--uch-border); }
-  .zf-save-row td { color: var(--uch-accent); font-weight: 700; }
-  .zf-hint { font-size: 0.82rem; color: var(--uch-text-muted); margin-top: 4px; display: block; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="房東租賃所得稅、房屋稅、地價稅試算：比較一般出租、公益出租人與社會住宅包租代管的預估稅額。" />
+  <meta name="theme-color" content="#164f3b" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>房東出租稅務試算｜梁淑珠店長</title>
+  <style>
+    :root{
+      --green-950:#0c3226;
+      --green-900:#123f30;
+      --green-800:#16523d;
+      --green-700:#1d6a4e;
+      --green-600:#278160;
+      --green-100:#e9f4ef;
+      --green-50:#f5faf7;
+      --gold:#d9b66f;
+      --ink:#1b2722;
+      --muted:#66736d;
+      --line:#dce7e1;
+      --white:#ffffff;
+      --danger:#9d3d36;
+      --shadow:0 18px 50px rgba(13,57,42,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 85% -10%, rgba(217,182,111,.22), transparent 34%),
+        linear-gradient(180deg,#edf6f1 0,#f8fbf9 38%,#fff 100%);
+      line-height:1.65;
+    }
+    button,input,select{font:inherit}
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    header{padding:34px 0 20px}
+    .brand{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      color:var(--green-950);
+    }
+    .brand-mark{display:flex;align-items:center;gap:12px;font-weight:800}
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      display:grid;place-items:center;color:white;
+      background:linear-gradient(145deg,var(--green-900),var(--green-600));
+      box-shadow:0 8px 20px rgba(18,63,48,.2);
+      font-size:21px;
+    }
+    .contact-top{font-size:14px;color:var(--muted);text-align:right}
+    .hero{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center;
+      padding:36px 0 28px;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 12px;border-radius:999px;background:var(--green-100);
+      color:var(--green-800);font-size:14px;font-weight:800;
+    }
+    h1{
+      margin:16px 0 14px;font-size:clamp(36px,5.4vw,64px);line-height:1.12;
+      letter-spacing:-.04em;color:var(--green-950);
+    }
+    .hero p{font-size:18px;color:#4e5d56;margin:0;max-width:700px}
+    .hero-card{
+      background:linear-gradient(155deg,var(--green-950),var(--green-700));
+      color:white;border-radius:28px;padding:28px;box-shadow:var(--shadow);
+      position:relative;overflow:hidden;
+    }
+    .hero-card:after{
+      content:"";position:absolute;width:190px;height:190px;border-radius:50%;
+      border:38px solid rgba(255,255,255,.07);right:-80px;bottom:-80px;
+    }
+    .hero-card h2{margin:0 0 18px;font-size:22px}
+    .mini-grid{display:grid;gap:11px}
+    .mini-row{
+      display:grid;grid-template-columns:1fr auto;gap:14px;
+      padding:12px 0;border-bottom:1px solid rgba(255,255,255,.15)
+    }
+    .mini-row:last-child{border:0}
+    .mini-row strong{color:#f5dda9}
+    main{padding:12px 0 60px}
+    .panel{
+      background:rgba(255,255,255,.92);border:1px solid rgba(220,231,225,.9);
+      border-radius:28px;padding:28px;box-shadow:var(--shadow);backdrop-filter:blur(12px);
+    }
+    .panel-title{display:flex;align-items:start;justify-content:space-between;gap:20px;margin-bottom:22px}
+    .panel-title h2{margin:0;color:var(--green-950);font-size:26px}
+    .panel-title p{margin:4px 0 0;color:var(--muted)}
+    .form-section-title{font-weight:800;color:var(--green-800);font-size:14px;margin:22px 0 12px}
+    .form-section-title:first-child{margin-top:0}
+    .form-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    }
+    label{display:block;font-weight:800;font-size:14px;color:#35463e;margin-bottom:7px}
+    .field{
+      width:100%;border:1px solid #cfded6;background:#fff;border-radius:14px;
+      padding:13px 14px;outline:none;transition:.2s;
+    }
+    .field:focus{border-color:var(--green-600);box-shadow:0 0 0 4px rgba(39,129,96,.12)}
+    .hint{font-size:12px;color:var(--muted);margin-top:5px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+    .btn{
+      border:0;border-radius:14px;padding:13px 18px;font-weight:900;cursor:pointer;
+      transition:transform .15s,box-shadow .15s,background .15s;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--green-800);color:#fff;box-shadow:0 8px 18px rgba(22,82,61,.22)}
+    .btn-secondary{background:var(--green-100);color:var(--green-900)}
+    .results{margin-top:26px}
+    .summary-strip{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px
+    }
+    .summary-item{background:var(--green-50);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .summary-item span{display:block;color:var(--muted);font-size:13px}
+    .summary-item strong{font-size:22px;color:var(--green-950)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .tax-card{
+      border:1px solid var(--line);border-radius:22px;padding:22px;background:#fff;
+      position:relative;overflow:hidden;transition:.2s;
+    }
+    .tax-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(13,57,42,.08)}
+    .tax-card.featured{border:2px solid var(--green-600);background:linear-gradient(180deg,#f4fbf7,#fff)}
+    .badge{
+      display:inline-block;border-radius:999px;padding:5px 10px;font-size:12px;
+      font-weight:900;background:#eef3f0;color:#476057;
+    }
+    .featured .badge{background:var(--green-100);color:var(--green-800)}
+    .tax-card h3{font-size:22px;margin:12px 0 5px;color:var(--green-950)}
+    .sub{font-size:13px;color:var(--muted);min-height:42px}
+    .big-number{font-size:34px;line-height:1.2;font-weight:950;color:var(--green-800);margin:20px 0 2px}
+    .big-label{font-size:13px;color:var(--muted)}
+    .detail-list{margin-top:18px;border-top:1px dashed var(--line);padding-top:10px}
+    .detail{
+      display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:14px
+    }
+    .detail span{color:var(--muted)}
+    .detail.grand-total{
+      border-top:1px dashed var(--line);margin-top:4px;padding-top:12px;
+      font-weight:900;font-size:16px;color:var(--green-950)
+    }
+    .detail.grand-total span{color:var(--green-900);font-weight:800}
+    .saving{
+      margin-top:12px;padding:10px 12px;border-radius:12px;
+      background:#edf8f2;color:var(--green-800);font-weight:900;text-align:center
+    }
+    .formula-section{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .formula{
+      background:#f9fbfa;border:1px solid var(--line);border-radius:18px;padding:18px;
+    }
+    .formula h4{margin:0 0 8px;color:var(--green-900)}
+    .formula code{
+      display:block;white-space:normal;background:#eef5f1;border-radius:10px;
+      padding:10px;color:#244a3a;font-family:inherit;font-weight:800;font-size:13px;
+    }
+    .notice{
+      margin-top:22px;border-left:5px solid var(--gold);background:#fffaf0;
+      padding:16px 18px;border-radius:12px;color:#665537;font-size:14px
+    }
+    .source-box{
+      margin-top:18px;padding:18px;border-radius:18px;background:#f5f7f6;border:1px solid var(--line)
+    }
+    .source-box h3{font-size:17px;margin:0 0 8px;color:var(--green-950)}
+    .source-box a{color:var(--green-700);font-weight:800;text-decoration:none}
+    .source-box a:hover{text-decoration:underline}
+    footer{
+      background:var(--green-950);color:white;padding:34px 0;margin-top:20px
+    }
+    .footer-grid{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+    .footer-title{font-size:24px;font-weight:900}
+    .footer-sub{color:rgba(255,255,255,.72)}
+    .footer-contact{text-align:right;line-height:1.9}
+    .footer-contact a{color:#f4dda9;text-decoration:none;font-weight:900}
+    .toast{
+      position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);
+      background:#112d23;color:white;padding:11px 16px;border-radius:999px;
+      opacity:0;pointer-events:none;transition:.25s;box-shadow:0 8px 24px rgba(0,0,0,.2);
+      z-index:10
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:860px){
+      .hero{grid-template-columns:1fr}
+      .form-grid{grid-template-columns:repeat(2,1fr)}
+      .cards,.formula-section{grid-template-columns:1fr}
+      .summary-strip{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:560px){
+      .wrap{width:min(100% - 20px,1120px)}
+      header{padding-top:20px}
+      .contact-top{display:none}
+      .hero{padding-top:22px}
+      h1{font-size:42px}
+      .panel{padding:20px;border-radius:22px}
+      .form-grid,.summary-strip{grid-template-columns:1fr}
+      .panel-title{display:block}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-contact{text-align:left}
+    }
+    @media print{
+      header,.actions,.source-box,footer,.notice{display:none!important}
+      body{background:white}
+      .panel{box-shadow:none;border:0}
+    }
+  </style>
 </head>
 <body>
-
-<main id="top" class="section article-page">
-  <div class="container article-container">
-
-    <span class="zf-badge">內部工具・僅供淑珠與同事現場試算使用</span>
-    <h1 class="article-title">房東出租稅務試算</h1>
-    <p class="article-meta">比較「一般出租」「公益出租人」「社會住宅包租代管」三種身份的租賃所得稅、房屋稅、地價稅</p>
-
-    <p class="article-lead">
-      填入租金與房屋資料，自動比較三種出租身份的年度稅負，方便跟房東說明公益出租人／社宅包租代管能省多少稅。本頁僅在瀏覽器本機計算，不會上傳或儲存任何資料。
-    </p>
-
-    <form class="calc-form" id="zfForm">
-      <div class="zf-section">
-        <p class="zf-section-title">01　租金與所得資料</p>
-        <div class="calc-grid">
-          <label>
-            月租金（元）
-            <input type="number" id="monthlyRent" min="0" step="500" placeholder="例如 20000" required>
-          </label>
-          <label>
-            房東其他年度綜合所得淨額（元）
-            <input type="number" id="otherIncome" min="0" step="10000" placeholder="不含本筆租金，選填">
-            <small>指扣除免稅額、各項扣除額後的「綜合所得淨額」，可參考去年核定通知書。不確定可留空，工具會改用0元起算（僅這筆租金本身的稅，級距可能被低估）。</small>
-          </label>
-        </div>
+<header>
+  <div class="wrap brand">
+    <div class="brand-mark">
+      <div class="logo">宅</div>
+      <div>
+        <div>豐宥好宅｜梁淑珠店長</div>
+        <small style="font-weight:600;color:#6a766f">房東出租稅務試算工具</small>
       </div>
-
-      <div class="zf-section">
-        <p class="zf-section-title">02　房屋稅／地價稅資料（選填）</p>
-        <p class="zf-section-sub">留空則不試算該項稅目</p>
-        <div class="calc-grid">
-          <label>
-            房屋課稅現值（元）
-            <input type="number" id="houseValue" min="0" step="1000" placeholder="房屋稅單上的「房屋現值」">
-          </label>
-          <label>
-            土地課稅地價總額（元）
-            <input type="number" id="landValue" min="0" step="1000" placeholder="地價稅單上的「課稅地價」">
-          </label>
-          <label>
-            一般（非優惠）房屋稅率
-            <input type="number" id="houseRateNormal" min="0" step="0.1" value="3.6">
-            <small>單位 %。桃園市房屋稅2.0非自住稅率區間約3.2%～4.8%，依全國持有戶數核定，請以房屋稅單為準；其他縣市請自行調整。</small>
-          </label>
-          <label>
-            一般（非優惠）地價稅稅率
-            <input type="number" id="landRateNormal" min="0" step="0.5" value="10">
-            <small>單位 ‰。一般用地稅率依累進起點地價分10‰～55‰，請以地價稅單為準。</small>
-          </label>
-        </div>
-      </div>
-    </form>
-
-    <div class="calc-result" id="zfResult">
-      <h2>三種身份稅負比較（年）</h2>
-      <div class="zf-table-wrap">
-        <table class="zf-table">
-          <thead>
-            <tr>
-              <th class="zf-row-label">項目</th>
-              <th>一般出租</th>
-              <th>公益出租人</th>
-              <th>社會住宅包租代管</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th class="zf-row-label">全年租金收入</th><td id="g-rent">—</td><td id="p-rent">—</td><td id="s-rent">—</td></tr>
-            <tr><th class="zf-row-label">租金免稅額度</th><td id="g-exempt">—</td><td id="p-exempt">—</td><td id="s-exempt">—</td></tr>
-            <tr><th class="zf-row-label">必要費用認列比例</th><td id="g-rate">—</td><td id="p-rate">—</td><td id="s-rate">—</td></tr>
-            <tr><th class="zf-row-label">計入綜合所得的租賃所得</th><td id="g-income">—</td><td id="p-income">—</td><td id="s-income">—</td></tr>
-            <tr><th class="zf-row-label">這筆租金增加的綜合所得稅</th><td id="g-tax1">—</td><td id="p-tax1">—</td><td id="s-tax1">—</td></tr>
-            <tr><th class="zf-row-label">房屋稅適用稅率</th><td id="g-hrate">—</td><td id="p-hrate">—</td><td id="s-hrate">—</td></tr>
-            <tr><th class="zf-row-label">房屋稅（年）</th><td id="g-tax2">—</td><td id="p-tax2">—</td><td id="s-tax2">—</td></tr>
-            <tr><th class="zf-row-label">地價稅適用稅率</th><td id="g-lrate">—</td><td id="p-lrate">—</td><td id="s-lrate">—</td></tr>
-            <tr><th class="zf-row-label">地價稅（年）</th><td id="g-tax3">—</td><td id="p-tax3">—</td><td id="s-tax3">—</td></tr>
-            <tr class="zf-total-row"><th class="zf-row-label">全年稅負合計</th><td id="g-total">—</td><td id="p-total">—</td><td id="s-total">—</td></tr>
-            <tr class="zf-save-row"><th class="zf-row-label">比一般出租每年省下</th><td>—</td><td id="p-save">—</td><td id="s-save">—</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="calc-note" id="zfNote"></p>
     </div>
-
-    <div class="article-source">
-      <strong>試算依據（2026年8月查證）：</strong>
-      租賃所得必要費用：一般出租、公益出租人皆為43%；社會住宅包租代管為60%（財政部核釋）。
-      公益出租人、社會住宅包租代管每屋每月租金收入1萬5,000元（年18萬元）以下免納綜合所得稅，超過部分才計入租賃所得。
-      綜合所得稅採115年度（2026年適用）級距：淨額59萬元以下5%，59萬～133萬12%（累進差額41,300）、133萬～266萬20%（累進差額147,700）、266萬～498萬30%（累進差額413,700）、498萬以上40%（累進差額911,700）。
-      房屋稅：公益出租人與社宅包租代管房屋比照自住稅率1.2%課徵；一般非自住房屋依房屋稅2.0新制，各縣市稅率2%～4.8%（桃園市約3.2%～4.8%，依全國持有戶數核定）。
-      地價稅：公益出租人與社宅包租代管房屋所占土地比照自用住宅用地稅率2‰課徵；一般用地依累進起點地價採10‰～55‰累進稅率。
-      以上優惠皆須完成公益出租人認定或簽訂社會住宅包租代管契約並經地方主管機關核准後才適用，非自動生效。本工具僅供概估參考，不構成正式稅務意見，實際金額請以國稅局、地方稅捐機關核定或洽會計師為準。
+    <div class="contact-top">
+      諮詢專線 0931-343-140<br>LINE：twnm681011
     </div>
-
   </div>
+</header>
+
+<section class="wrap hero">
+  <div>
+    <div class="eyebrow">2026 房東實用工具</div>
+    <h1>出租房子，<br>稅要繳多少？</h1>
+    <p>輸入每月租金、房屋與土地資料，一次比較「一般出租、公益出租人、社會住宅包租代管」的租賃所得稅、房屋稅、地價稅全年稅負。</p>
+  </div>
+  <aside class="hero-card">
+    <h2>三種出租方式重點</h2>
+    <div class="mini-grid">
+      <div class="mini-row"><span>一般出租</span><strong>標準費用 43%</strong></div>
+      <div class="mini-row"><span>公益出租人</span><strong>月租 1.5 萬內免稅</strong></div>
+      <div class="mini-row"><span>社會住宅</span><strong>超額部分費用 60%</strong></div>
+      <div class="mini-row"><span>房屋稅／地價稅優惠</span><strong>1.2% ／ 2‰</strong></div>
+    </div>
+  </aside>
+</section>
+
+<main class="wrap">
+  <section class="panel">
+    <div class="panel-title">
+      <div>
+        <h2>開始試算</h2>
+        <p>本工具以「單一房屋、每月固定租金、採標準費用率」估算，房屋稅與地價稅可選填。</p>
+      </div>
+    </div>
+
+    <p class="form-section-title">01　租金與所得資料</p>
+    <div class="form-grid">
+      <div>
+        <label for="rent">每月租金（元）</label>
+        <input class="field" id="rent" type="number" min="0" step="500" value="23000" inputmode="numeric">
+      </div>
+      <div>
+        <label for="months">出租月數</label>
+        <input class="field" id="months" type="number" min="1" max="12" step="1" value="12" inputmode="numeric">
+        <div class="hint">最多 12 個月</div>
+      </div>
+      <div>
+        <label for="rate">預估綜所稅邊際稅率</label>
+        <select class="field" id="rate">
+          <option value="0.05">5%</option>
+          <option value="0.12">12%</option>
+          <option value="0.20" selected>20%</option>
+          <option value="0.30">30%</option>
+          <option value="0.40">40%</option>
+        </select>
+        <div class="hint">租賃所得會併入個人綜合所得</div>
+      </div>
+      <div>
+        <label for="units">房屋戶數</label>
+        <input class="field" id="units" type="number" min="1" max="50" step="1" value="1" inputmode="numeric">
+        <div class="hint">假設每戶租金與月數相同</div>
+      </div>
+    </div>
+
+    <p class="form-section-title">02　房屋稅／地價稅資料（選填，留空則不列入試算）</p>
+    <div class="form-grid">
+      <div>
+        <label for="houseValue">房屋課稅現值（元）</label>
+        <input class="field" id="houseValue" type="number" min="0" step="1000" placeholder="房屋稅單上的「房屋現值」" inputmode="numeric">
+      </div>
+      <div>
+        <label for="landValue">土地課稅地價總額（元）</label>
+        <input class="field" id="landValue" type="number" min="0" step="1000" placeholder="地價稅單上的「課稅地價」" inputmode="numeric">
+      </div>
+      <div>
+        <label for="houseRateNormal">一般（非優惠）房屋稅率</label>
+        <input class="field" id="houseRateNormal" type="number" min="0" step="0.1" value="3.6" inputmode="decimal">
+        <div class="hint">單位 %。桃園非自住約3.2%～4.8%，依全國持有戶數核定，請以房屋稅單為準。</div>
+      </div>
+      <div>
+        <label for="landRateNormal">一般（非優惠）地價稅稅率</label>
+        <input class="field" id="landRateNormal" type="number" min="0" step="0.5" value="10" inputmode="decimal">
+        <div class="hint">單位 ‰。一般用地10‰～55‰依累進起點地價，請以地價稅單為準。</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="calcBtn">立即比較稅額</button>
+      <button class="btn btn-secondary" id="copyBtn">複製試算結果</button>
+      <button class="btn btn-secondary" onclick="window.print()">列印／存成 PDF</button>
+    </div>
+
+    <div class="results" aria-live="polite">
+      <div class="summary-strip">
+        <div class="summary-item"><span>全年租金收入</span><strong id="annualRent">—</strong></div>
+        <div class="summary-item"><span>採用預估稅率</span><strong id="usedRate">—</strong></div>
+        <div class="summary-item"><span>社宅較一般出租全年稅負節省</span><strong id="topSaving">—</strong></div>
+      </div>
+
+      <div class="cards">
+        <article class="tax-card">
+          <span class="badge">一般市場出租</span>
+          <h3>一般出租</h3>
+          <div class="sub">無每月免稅額；未逐項舉證時，標準必要費用率為 43%。</div>
+          <div class="big-number" id="generalTax">—</div>
+          <div class="big-label">預估增加所得稅</div>
+          <div class="detail-list">
+            <div class="detail"><span>免稅租金</span><strong id="generalExempt">—</strong></div>
+            <div class="detail"><span>標準費用</span><strong id="generalExpense">—</strong></div>
+            <div class="detail"><span>應申報租賃所得</span><strong id="generalTaxable">—</strong></div>
+            <div class="detail"><span>房屋稅適用稅率</span><strong id="generalHouseRate">—</strong></div>
+            <div class="detail"><span>房屋稅（年）</span><strong id="generalHouseTax">—</strong></div>
+            <div class="detail"><span>地價稅適用稅率</span><strong id="generalLandRate">—</strong></div>
+            <div class="detail"><span>地價稅（年）</span><strong id="generalLandTax">—</strong></div>
+            <div class="detail grand-total"><span>全年稅負合計</span><strong id="generalGrandTotal">—</strong></div>
+          </div>
+        </article>
+
+        <article class="tax-card">
+          <span class="badge">住宅法第 15 條</span>
+          <h3>公益出租人</h3>
+          <div class="sub">每屋每月租金收入 15,000 元內免稅；超過部分標準費用率 43%；房屋稅、地價稅比照自住優惠稅率。</div>
+          <div class="big-number" id="publicTax">—</div>
+          <div class="big-label">預估增加所得稅</div>
+          <div class="detail-list">
+            <div class="detail"><span>免稅租金</span><strong id="publicExempt">—</strong></div>
+            <div class="detail"><span>標準費用</span><strong id="publicExpense">—</strong></div>
+            <div class="detail"><span>應申報租賃所得</span><strong id="publicTaxable">—</strong></div>
+            <div class="detail"><span>房屋稅適用稅率</span><strong id="publicHouseRate">1.2%</strong></div>
+            <div class="detail"><span>房屋稅（年）</span><strong id="publicHouseTax">—</strong></div>
+            <div class="detail"><span>地價稅適用稅率</span><strong id="publicLandRate">2‰</strong></div>
+            <div class="detail"><span>地價稅（年）</span><strong id="publicLandTax">—</strong></div>
+            <div class="detail grand-total"><span>全年稅負合計</span><strong id="publicGrandTotal">—</strong></div>
+          </div>
+          <div class="saving" id="publicSaving">—</div>
+        </article>
+
+        <article class="tax-card featured">
+          <span class="badge">住宅法第 23 條</span>
+          <h3>社會住宅包租代管</h3>
+          <div class="sub">每屋每月租金收入 15,000 元內免稅；超過部分標準費用率 60%；房屋稅、地價稅比照自住優惠稅率。</div>
+          <div class="big-number" id="socialTax">—</div>
+          <div class="big-label">預估增加所得稅</div>
+          <div class="detail-list">
+            <div class="detail"><span>免稅租金</span><strong id="socialExempt">—</strong></div>
+            <div class="detail"><span>標準費用</span><strong id="socialExpense">—</strong></div>
+            <div class="detail"><span>應申報租賃所得</span><strong id="socialTaxable">—</strong></div>
+            <div class="detail"><span>房屋稅適用稅率</span><strong id="socialHouseRate">1.2%</strong></div>
+            <div class="detail"><span>房屋稅（年）</span><strong id="socialHouseTax">—</strong></div>
+            <div class="detail"><span>地價稅適用稅率</span><strong id="socialLandRate">2‰</strong></div>
+            <div class="detail"><span>地價稅（年）</span><strong id="socialLandTax">—</strong></div>
+            <div class="detail grand-total"><span>全年稅負合計</span><strong id="socialGrandTotal">—</strong></div>
+          </div>
+          <div class="saving" id="socialSaving">—</div>
+        </article>
+      </div>
+    </div>
+
+    <div class="formula-section">
+      <div class="formula">
+        <h4>一般出租公式</h4>
+        <code>應申報租賃所得＝全年租金 × 57%<br>房屋稅＝房屋現值 × 一般稅率／地價稅＝課稅地價 × 一般稅率</code>
+      </div>
+      <div class="formula">
+        <h4>公益出租人公式</h4>
+        <code>應申報租賃所得＝（月租－15,000）× 月數 × 57%<br>房屋稅稅率1.2%／地價稅稅率2‰</code>
+      </div>
+      <div class="formula">
+        <h4>社會住宅公式</h4>
+        <code>應申報租賃所得＝（月租－15,000）× 月數 × 40%<br>房屋稅稅率1.2%／地價稅稅率2‰</code>
+      </div>
+    </div>
+
+    <div class="notice">
+      <strong>重要提醒：</strong>租賃所得增加的所得稅是用您選擇的「預估邊際稅率」直接乘算，屬簡化估算，不是完整綜合所得稅申報結果，實際仍會受全戶其他所得、免稅額、扣除額與國稅局核定影響。房屋稅／地價稅優惠稅率（1.2%／2‰）須完成公益出租人認定或簽訂社會住宅包租代管契約並經地方主管機關核准後才適用，非自動生效；一般房屋稅率依房屋稅2.0新制及所在縣市、持有戶數而異，地價稅一般稅率依累進起點地價而異，請以房屋稅單、地價稅單為準。若可提出實際費用憑證，也可依規定採逐項舉證。
+    </div>
+
+    <div class="source-box">
+      <h3>官方規則來源</h3>
+      <div>財政部稅務入口網：
+        <a href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/individual-income-tax/taxation-scope/which-income/7b2K0zB" target="_blank" rel="noopener">適用住宅法之租賃所得</a>
+        ／
+        <a href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/individual-income-tax/taxation-scope/which-income/B9Z0L2W" target="_blank" rel="noopener">一般房屋租賃所得</a>
+      </div>
+      <small>規則版本檢核日期：2026-08-05</small>
+    </div>
+  </section>
 </main>
 
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-title">出租前先算清楚，選擇更適合自己的方式</div>
+      <div class="footer-sub">房屋出租、社宅包租代管、公益出租人資格，可先洽詢專業人員。</div>
+    </div>
+    <div class="footer-contact">
+      有巢氏房屋｜豐宥好宅店<br>
+      店長 梁淑珠<br>
+      <a href="tel:0931343140">0931-343-140</a>・LINE：twnm681011
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">已複製試算結果</div>
+
 <script>
-(function () {
-  const monthlyRent = document.getElementById("monthlyRent");
-  const otherIncome = document.getElementById("otherIncome");
-  const houseValue = document.getElementById("houseValue");
-  const landValue = document.getElementById("landValue");
-  const houseRateNormal = document.getElementById("houseRateNormal");
-  const landRateNormal = document.getElementById("landRateNormal");
-  const zfNote = document.getElementById("zfNote");
+  const $ = id => document.getElementById(id);
+  const money = n => new Intl.NumberFormat('zh-TW', {
+    style:'currency', currency:'TWD', maximumFractionDigits:0
+  }).format(Math.round(n));
+  const pct = n => {
+    const v = parseFloat((Math.round(n * 10000) / 100).toFixed(2));
+    return v + '%';
+  };
+  const perMille = n => {
+    const v = parseFloat((Math.round(n * 10000) / 10).toFixed(2));
+    return v + '‰';
+  };
 
-  function fmt(n) {
-    return Math.round(n).toLocaleString("zh-Hant-TW");
+  function values(){
+    const monthly = Math.max(0, Number($('rent').value) || 0);
+    const months = Math.min(12, Math.max(1, Number($('months').value) || 1));
+    const rate = Number($('rate').value);
+    const units = Math.max(1, Number($('units').value) || 1);
+    const houseValue = Math.max(0, Number($('houseValue').value) || 0);
+    const landValue = Math.max(0, Number($('landValue').value) || 0);
+    const houseRateNormal = Math.max(0, Number($('houseRateNormal').value) || 0);
+    const landRateNormal = Math.max(0, Number($('landRateNormal').value) || 0);
+    return {monthly, months, rate, units, houseValue, landValue, houseRateNormal, landRateNormal};
   }
 
-  function progressiveTax(net) {
-    if (net <= 0) return 0;
-    const brackets = [
-      { limit: 590000, rate: 0.05, deduction: 0 },
-      { limit: 1330000, rate: 0.12, deduction: 41300 },
-      { limit: 2660000, rate: 0.20, deduction: 147700 },
-      { limit: 4980000, rate: 0.30, deduction: 413700 },
-      { limit: Infinity, rate: 0.40, deduction: 911700 },
-    ];
-    for (const b of brackets) {
-      if (net <= b.limit) return Math.max(0, net * b.rate - b.deduction);
-    }
-  }
+  const HOUSE_RATE_PREF = 0.012;
+  const LAND_RATE_PREF = 0.002;
 
-  function calcType(type, rentMonthly, otherNet, hVal, lVal, hRateNormal, lRateNormal) {
-    const annualRent = rentMonthly * 12;
-    const isPref = type === "public" || type === "social";
-    const expenseRate = type === "social" ? 0.60 : 0.43;
-    const exemption = isPref ? Math.min(annualRent, 180000) : 0;
-    const taxableGross = Math.max(0, annualRent - exemption);
-    const rentalIncome = taxableGross * (1 - expenseRate);
+  function calculate(){
+    const {monthly, months, rate, units, houseValue, landValue, houseRateNormal, landRateNormal} = values();
+    $('months').value = months;
+    $('units').value = units;
 
-    const taxBefore = progressiveTax(otherNet);
-    const taxAfter = progressiveTax(otherNet + rentalIncome);
-    const addedIncomeTax = taxAfter - taxBefore;
+    const annual = monthly * months * units;
 
-    const hRate = isPref ? 0.012 : hRateNormal / 100;
-    const lRate = isPref ? 0.002 : lRateNormal / 1000;
-    const houseTax = hVal * hRate;
-    const landTax = lVal * lRate;
+    const generalExempt = 0;
+    const generalExpense = annual * 0.43;
+    const generalTaxable = annual - generalExpense;
+    const generalTax = generalTaxable * rate;
 
-    const total = addedIncomeTax + houseTax + landTax;
+    const monthlyExemptPerUnit = Math.min(monthly, 15000);
+    const exempt = monthlyExemptPerUnit * months * units;
+    const excess = Math.max(0, monthly - 15000) * months * units;
+
+    const publicExpense = excess * 0.43;
+    const publicTaxable = excess - publicExpense;
+    const publicTax = publicTaxable * rate;
+
+    const socialExpense = excess * 0.60;
+    const socialTaxable = excess - socialExpense;
+    const socialTax = socialTaxable * rate;
+
+    const houseRateNormalDec = houseRateNormal / 100;
+    const landRateNormalDec = landRateNormal / 1000;
+
+    const generalHouseTax = houseValue * houseRateNormalDec;
+    const generalLandTax = landValue * landRateNormalDec;
+    const prefHouseTax = houseValue * HOUSE_RATE_PREF;
+    const prefLandTax = landValue * LAND_RATE_PREF;
+
+    const generalGrandTotal = generalTax + generalHouseTax + generalLandTax;
+    const publicGrandTotal = publicTax + prefHouseTax + prefLandTax;
+    const socialGrandTotal = socialTax + prefHouseTax + prefLandTax;
+
+    const publicSaving = Math.max(0, generalGrandTotal - publicGrandTotal);
+    const socialSaving = Math.max(0, generalGrandTotal - socialGrandTotal);
+
+    $('annualRent').textContent = money(annual);
+    $('usedRate').textContent = `${Math.round(rate*100)}%`;
+    $('topSaving').textContent = money(socialSaving);
+
+    $('generalTax').textContent = money(generalTax);
+    $('generalExempt').textContent = money(generalExempt);
+    $('generalExpense').textContent = money(generalExpense);
+    $('generalTaxable').textContent = money(generalTaxable);
+    $('generalHouseRate').textContent = pct(houseRateNormalDec);
+    $('generalHouseTax').textContent = money(generalHouseTax);
+    $('generalLandRate').textContent = perMille(landRateNormalDec);
+    $('generalLandTax').textContent = money(generalLandTax);
+    $('generalGrandTotal').textContent = money(generalGrandTotal);
+
+    $('publicTax').textContent = money(publicTax);
+    $('publicExempt').textContent = money(exempt);
+    $('publicExpense').textContent = money(publicExpense);
+    $('publicTaxable').textContent = money(publicTaxable);
+    $('publicHouseTax').textContent = money(prefHouseTax);
+    $('publicLandTax').textContent = money(prefLandTax);
+    $('publicGrandTotal').textContent = money(publicGrandTotal);
+    $('publicSaving').textContent = `較一般出租全年稅負合計少繳 ${money(publicSaving)}`;
+
+    $('socialTax').textContent = money(socialTax);
+    $('socialExempt').textContent = money(exempt);
+    $('socialExpense').textContent = money(socialExpense);
+    $('socialTaxable').textContent = money(socialTaxable);
+    $('socialHouseTax').textContent = money(prefHouseTax);
+    $('socialLandTax').textContent = money(prefLandTax);
+    $('socialGrandTotal').textContent = money(socialGrandTotal);
+    $('socialSaving').textContent = `較一般出租全年稅負合計少繳 ${money(socialSaving)}`;
 
     return {
-      annualRent, exemption, expenseRate, rentalIncome,
-      addedIncomeTax, hRate, lRate, houseTax, landTax, total,
+      monthly, months, rate, units, annual,
+      generalTaxable, generalTax, generalHouseTax, generalLandTax, generalGrandTotal,
+      publicTaxable, publicTax, prefHouseTax, prefLandTax, publicGrandTotal, publicSaving,
+      socialTaxable, socialTax, socialGrandTotal, socialSaving,
     };
   }
 
-  function fill(prefix, r) {
-    document.getElementById(prefix + "-rent").textContent = fmt(r.annualRent) + " 元";
-    document.getElementById(prefix + "-exempt").textContent = r.exemption > 0 ? fmt(r.exemption) + " 元" : "無";
-    document.getElementById(prefix + "-rate").textContent = (r.expenseRate * 100).toFixed(0) + "%";
-    document.getElementById(prefix + "-income").textContent = fmt(r.rentalIncome) + " 元";
-    document.getElementById(prefix + "-tax1").textContent = fmt(r.addedIncomeTax) + " 元";
-    document.getElementById(prefix + "-hrate").textContent = (r.hRate * 100).toFixed(2).replace(/\.?0+$/, "") + "%";
-    document.getElementById(prefix + "-tax2").textContent = fmt(r.houseTax) + " 元";
-    document.getElementById(prefix + "-lrate").textContent = (r.lRate * 1000).toFixed(2).replace(/\.?0+$/, "") + "‰";
-    document.getElementById(prefix + "-tax3").textContent = fmt(r.landTax) + " 元";
-    document.getElementById(prefix + "-total").textContent = fmt(r.total) + " 元";
-  }
+  async function copyResult(){
+    const r = calculate();
+    const text =
+`房東出租稅務試算
+每月租金：${money(r.monthly)}
+出租月數：${r.months} 個月
+房屋戶數：${r.units} 戶
+預估邊際稅率：${Math.round(r.rate*100)}%
+全年租金收入：${money(r.annual)}
 
-  function calc() {
-    const rentVal = parseFloat(monthlyRent.value);
-    if (isNaN(rentVal) || rentVal < 0) {
-      ["g", "p", "s"].forEach((p) => {
-        ["rent", "exempt", "rate", "income", "tax1", "hrate", "tax2", "lrate", "tax3", "total"].forEach((k) => {
-          const el = document.getElementById(p + "-" + k);
-          if (el) el.textContent = "—";
-        });
-      });
-      document.getElementById("p-save").textContent = "—";
-      document.getElementById("s-save").textContent = "—";
-      zfNote.textContent = "";
-      return;
+一般出租：租賃所得 ${money(r.generalTaxable)}，所得稅 ${money(r.generalTax)}＋房屋稅 ${money(r.generalHouseTax)}＋地價稅 ${money(r.generalLandTax)}＝全年稅負合計 ${money(r.generalGrandTotal)}
+公益出租人：租賃所得 ${money(r.publicTaxable)}，所得稅 ${money(r.publicTax)}＋房屋稅 ${money(r.prefHouseTax)}＋地價稅 ${money(r.prefLandTax)}＝全年稅負合計 ${money(r.publicGrandTotal)}，較一般出租少 ${money(r.publicSaving)}
+社會住宅包租代管：租賃所得 ${money(r.socialTaxable)}，所得稅 ${money(r.socialTax)}＋房屋稅 ${money(r.prefHouseTax)}＋地價稅 ${money(r.prefLandTax)}＝全年稅負合計 ${money(r.socialGrandTotal)}，較一般出租少 ${money(r.socialSaving)}
+
+※僅供初步估算，實際以國稅局、地方稅捐機關核定為準。
+有巢氏房屋 豐宥好宅店｜梁淑珠店長 0931-343-140`;
+    try{
+      await navigator.clipboard.writeText(text);
+    }catch(e){
+      const ta=document.createElement('textarea');
+      ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
     }
-
-    const otherVal = parseFloat(otherIncome.value) || 0;
-    const hVal = parseFloat(houseValue.value) || 0;
-    const lVal = parseFloat(landValue.value) || 0;
-    const hRateNormalVal = parseFloat(houseRateNormal.value) || 0;
-    const lRateNormalVal = parseFloat(landRateNormal.value) || 0;
-
-    const g = calcType("general", rentVal, otherVal, hVal, lVal, hRateNormalVal, lRateNormalVal);
-    const p = calcType("public", rentVal, otherVal, hVal, lVal, hRateNormalVal, lRateNormalVal);
-    const s = calcType("social", rentVal, otherVal, hVal, lVal, hRateNormalVal, lRateNormalVal);
-
-    fill("g", g);
-    fill("p", p);
-    fill("s", s);
-
-    document.getElementById("p-save").textContent = fmt(g.total - p.total) + " 元";
-    document.getElementById("s-save").textContent = fmt(g.total - s.total) + " 元";
-
-    // highlight cheapest total
-    ["g-total", "p-total", "s-total"].forEach((id) => document.getElementById(id).classList.remove("zf-best"));
-    const totals = { "g-total": g.total, "p-total": p.total, "s-total": s.total };
-    const bestId = Object.keys(totals).reduce((a, b) => (totals[a] <= totals[b] ? a : b));
-    document.getElementById(bestId).classList.add("zf-best");
-
-    const notes = [];
-    if (!houseValue.value) notes.push("未填房屋現值，房屋稅未計入");
-    if (!landValue.value) notes.push("未填土地課稅地價，地價稅未計入");
-    if (!otherIncome.value) notes.push("未填其他綜合所得淨額，綜所稅從0元級距起算，僅供概估");
-    zfNote.textContent = notes.length ? "提醒：" + notes.join("；") + "。" : "";
+    const toast=$('toast');toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),1800);
   }
 
-  document.getElementById("zfForm").addEventListener("input", calc);
-  calc();
-})();
+  $('calcBtn').addEventListener('click',calculate);
+  $('copyBtn').addEventListener('click',copyResult);
+  ['rent','months','rate','units','houseValue','landValue','houseRateNormal','landRateNormal'].forEach(id => $(id).addEventListener('input',calculate));
+  calculate();
 </script>
 </body>
 </html>
